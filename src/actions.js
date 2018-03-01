@@ -9,7 +9,7 @@ function action(func) {
   }
 }
 
-const findElement = (matcher, prevRes, context) =>
+const findElement = (matcher = undefined, prevRes, context) =>
   matcher ? context.element(matcher) : prevRes;
 
 const reloadReact = () => (prevRes, context) => context.device.reloadReactNative();
