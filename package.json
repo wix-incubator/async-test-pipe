@@ -1,0 +1,26 @@
+{
+  "name": "async-test-pipe",
+  "version": "1.0.0",
+  "description": "Convenient interface for asynchronous testing frameworks",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wix/async-test-pipe.git"
+  },
+  "keywords": [
+    "test",
+    "automation"
+  ],
+  "author": "Serhii Trofimets aka trofima",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wix/async-test-pipe/issues"
+  },
+  "homepage": "https://github.com/wix/async-test-pipe#readme",
+  "devDependencies": {
+    "jest": "^22.4.2"
+  }
+}
