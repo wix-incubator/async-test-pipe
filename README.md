@@ -1,12 +1,12 @@
 # async-test-pipe
 Convenient interface for asynchronous testing frameworks.
 
-* [What is that?](#What is that?)
-* [What you can (API)](#What you can)
-  * [Initialize](#Initialize)
-  * [Action list](#Action list) 
-  * [Expectation list](#Expectation list) 
-  * [Advanced usage](#Advanced usage) 
+* [What is that?](#what-is-that?)
+* [What you can](#what-you-can)
+  * [Initialize](#initialize)
+  * [Action list](#action-list) 
+  * [Expectation list](#expectation-list) 
+  * [Advanced usage](#advanced-usage) 
 
 ## What is that?
 This is just a simple pipe library that provides you with convenient interface 
