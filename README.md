@@ -40,7 +40,7 @@ describe('Login flow', () => {
     await testFlow(
       reloadReact(),
       isVisible(emailInput),
-      typeText('john@example.com', emailInput),
+      typeText('john@example.com'),
       typeText('123456', by.id('password')),
       tap(by.id('Login')),
       isVisible(by.text('Welcome')),
@@ -69,7 +69,6 @@ describe('Test flow', () => {
     )(detox);
   });
 });
-
 ```
 
 ### Action list
@@ -122,7 +121,6 @@ import {multiTap} from 'async-test-pipe';
     multiTap(by.id('someId')),
   )(context);
 //...
-
 ```
 
 `typeText(text, [matcher])` types text to an element.
@@ -133,7 +131,6 @@ import {multiTap} from 'async-test-pipe';
     text('some text', by.id('someId')),
   )(context);
 //...
-
 ```
 
 `replaceText(text, [matcher])` replaces text in the element.
@@ -144,7 +141,6 @@ import {replaceText} from 'async-test-pipe';
     replaceText('some text', by.id('someId')),
   )(context);
 //...
-
 ```
 
 `clearText([matcher])` clears text from the element.
@@ -155,7 +151,6 @@ import {clearText} from 'async-test-pipe';
     clearText(by.id('someId')),
   )(context);
 //...
-
 ```
 
 `scroll(distance, direction, [matcher])` scrolls an element by a given distance in a given direction. 
@@ -166,7 +161,6 @@ import {scroll} from 'async-test-pipe';
     scroll(100, 'down', by.id('someId')),
   )(context);
 //...
-
 ```
 
 `scrollTo(edge, [matcher])` scrolls an element to a given edge.
@@ -177,7 +171,6 @@ import {scrollTo} from 'async-test-pipe';
     scrollTo('top', by.id('someId')),
   )(context);
 //...
-
 ```
 
 `swipe(direction, speed, percentage, [matcher])` swipes an element in a given direction with a given speed by a given distance in percents.
@@ -188,18 +181,79 @@ import {swipe} from 'async-test-pipe';
     swipe('top', 'fast', 10, by.id('someId')),
   )(context);
 //...
-
 ```
 
 ### Expectation list
 
-isVisible,
-isNotVisible,
-doesExist,
-doesNotExist,
-hasText,
-hasId,
-hasValue,
+`isVisible([matcher])` checks if an element is visible.
+```js
+import {isVisible} from 'async-test-pipe';
+//...
+  await testFlow(
+    isVisible(by.id('someId')),
+  )(context);
+//...
+```
+
+`isNotVisible([matcher])` checks if an element is not visible.
+```js
+import {isNotVisible} from 'async-test-pipe';
+//...
+  await testFlow(
+    isNotVisible(by.id('someId')),
+  )(context);
+//...
+```
+
+`doesExist([matcher])` checks if an element exist.
+```js
+import {doesExist} from 'async-test-pipe';
+//...
+  await testFlow(
+    doesExist(by.id('someId')),
+  )(context);
+//...
+```
+
+`doesNotExist([matcher])` checks if an element doesn't exist. 
+```js
+import {doesNotExist} from 'async-test-pipe';
+//...
+  await testFlow(
+    doesNotExist(by.id('someId')),
+  )(context);
+//...
+```
+
+`hasText(text, [matcher])` checks if an element has given text.  
+```js
+import {hasText} from 'async-test-pipe';
+//...
+  await testFlow(
+    hasText('some text', by.id('someId')),
+  )(context);
+//...
+```
+
+`hasId(id, [matcher])` checks if an element has given id.
+```js
+import {hasId} from 'async-test-pipe';
+//...
+  await testFlow(
+    hasId('someId', by.id('someId')),
+  )(context);
+//...
+```
+
+`hasValue(value, [matcher])` checks if an element has given value.
+```js
+import {hasValue} from 'async-test-pipe';
+//...
+  await testFlow(
+    hasValue(100, by.id('someId')),
+  )(context);
+//...
+```
 
 ### Advanced usage
 
