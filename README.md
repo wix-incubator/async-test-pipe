@@ -61,13 +61,13 @@ describe('Login flow', () => {
 Looks more sexy, no?
 
 ## What you can
-([contents](#contents))
+([back to contents](#contents))
 
 Note, that all functions pass to the next step the element, found by matcher or gotten from the previous step.
 See **Advanced usage** for details.
 
 ### Initialize 
-([contents](#contents))
+([back to contents](#contents))
 
 ```js
 import * as detox from 'detox';
@@ -82,7 +82,7 @@ describe('Test flow', () => {
 ```
 
 ### Action list 
-([contents](#contents))
+([back to contents](#contents))
 
 `reloadReact()` reloads React Native on device.
 ```js
@@ -195,7 +195,8 @@ import {swipe} from 'async-test-pipe';
 ```
 
 ### Expectation list
-([contents](#contents))
+([back to contents](#contents))
+
 `isVisible([matcher])` checks if an element is visible.
 ```js
 import {isVisible} from 'async-test-pipe';
@@ -267,4 +268,4 @@ import {hasValue} from 'async-test-pipe';
 ```
 
 ### Advanced usage
-([contents](#contents))
+([back to contents](#contents))
