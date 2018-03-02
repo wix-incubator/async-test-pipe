@@ -1,6 +1,13 @@
 # async-test-pipe
 Convenient interface for asynchronous testing frameworks.
 
+* [What is that?](#What is that?)
+* [What you can (API)](#What you can)
+  * [Initialize](#Initialize)
+  * [Action list](#Action list) 
+  * [Expectation list](#Expectation list) 
+  * [Advanced usage](#Advanced usage) 
+
 ## What is that?
 This is just a simple pipe library that provides you with convenient interface 
 for asynchronous automation testing frameworks.
@@ -52,7 +59,7 @@ describe('Login flow', () => {
 
 Looks more sexy, no?
 
-## What you can (API)
+## What you can
 
 Note, that all functions pass to the next step the element, found by matcher or gotten from the previous step.
 See **Advanced usage** for details.
