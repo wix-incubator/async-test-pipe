@@ -45,7 +45,10 @@ describe('Login flow', () => {
 
 using **async-test-pipe** becomes:
 ```js
-import {by, element, expect, device} from 'detox';
+import * as detox from 'detox';
+import {testPipe, tap, reloadReact, isVisible, typeText, doesNotExist} from 'async-test-pipe';
+
+const {by} = detox;
 
 describe('Login flow', () => {
   it('logins successfully', async () => {
@@ -59,7 +62,7 @@ describe('Login flow', () => {
       tap(by.id('Login')),
       isVisible(by.text('Welcome')),
       doesNotExist(emailInput),
-    )({element, expect, device});
+    )(detox);
   });
 });
 ```
