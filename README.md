@@ -2,12 +2,18 @@
 Convenient interface for asynchronous testing frameworks.
 
 ## Contents
+* [Installation?](#instalation?)
 * [What is that?](#what-is-that?)
 * [What you can](#what-you-can)
   * [Initialize](#initialize)
   * [Action list](#action-list) 
   * [Expectation list](#expectation-list) 
   * [Advanced usage](#advanced-usage) 
+  
+## Installation
+```bash
+(It's not fully tested ant therefore is not published yet. Please be patient, coming soon.)
+```
 
 ## What is that?
 This is just a simple pipe library that provides you with convenient interface 
