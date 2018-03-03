@@ -12,7 +12,7 @@ Convenient interface for asynchronous testing frameworks.
   
 ## Installation
 ```bash
-(It's not fully tested ant therefore is not published yet. Please be patient, coming soon.)
+(It's not fully tested and therefore is not published yet. Please be patient, coming soon.)
 ```
 
 ## What is that?
