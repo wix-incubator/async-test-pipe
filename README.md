@@ -269,3 +269,82 @@ import {hasValue} from 'async-test-pipe';
 
 ### Advanced usage
 ([back to contents](#contents))
+
+Consider few advanced examples.
+
+**You don't have to pass matcher all the time. All functions are getting the previously found element by default.**
+
+```js
+import * as detox from 'detox';
+import {testFlow, reloadReact, find, isVisible, typeText, replaceText, clearText} from 'async-test-pipe';
+
+const {by} = detox; 
+
+describe('Some flow', () => {
+  it('expects something to be correct', async () => {
+    const someElement = by.id('someId');
+    
+    await testFlow(
+      reloadReact(),
+      find(someElement),
+      isVisible(),
+      typeText('some text'),
+      replaceText('new next'),
+      clearText(),
+    )(detox);
+    
+    // The same (it's not required to use `find` separately) 
+    
+    await testFlow(
+      reloadReact(),
+      isVisible(someElement),
+      typeText('some text'),
+      replaceText('new next'),
+      clearText(),
+    )(detox);
+  });
+});
+```
+
+**You can reuse existing pipe.**
+
+```js
+import * as detox from 'detox';
+import {
+  testFlow, reloadReact, find, isVisible, typeText, 
+  replaceText, clearText, doesNotExist, tap,
+} from 'async-test-pipe';
+
+const {by} = detox; 
+
+describe('Some flow', () => {
+  const emailInput = by.id('email');
+  
+  const loginPipe = testFlow(
+    reloadReact(),
+    isVisible(emailInput),
+    typeText('john@example.com'),
+    typeText('123456', by.id('password')),
+    tap(by.id('Login')),
+    isVisible(by.text('Welcome')),
+    doesNotExist(emailInput),
+  );
+  
+  it('logins successfully', async () => {
+    await loginPipe(detox);
+  });
+  
+  it('expects something to be correct', async () => {
+    const someElement = by.id('someId');
+    
+    await testFlow(
+      loginPipe,
+      find(someElement),
+      isVisible(),
+      typeText('some text'),
+      replaceText('new next'),
+      clearText(),
+    )(detox);
+  });
+});
+```
