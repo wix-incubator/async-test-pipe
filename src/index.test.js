@@ -1,4 +1,4 @@
-const testFlow = require('./index');
+const testPipe = require('./index');
 
 class TestHelper {
   constructor() {
@@ -23,7 +23,7 @@ class TestHelper {
   }
 }
 
-describe('testFlow', () => {
+describe('testPipe', () => {
   it(`runs commands one by one passing previous command result`, async () => {
     const context = {element: {}, expect: () => {}, device: {}};
     const command1Res = 'command 1 return result';
@@ -32,7 +32,7 @@ describe('testFlow', () => {
     const command1 = command1Helper.createCommand(command1Res);
     const command2 = command2Helper.createCommand();
 
-    await testFlow(
+    await testPipe(
       command1,
       command2,
     )(context);
@@ -54,8 +54,8 @@ describe('testFlow', () => {
     const command2 = command2Helper.createCommand(command2Res);
     const command3 = command3Helper.createCommand();
 
-    await testFlow(
-      testFlow(command1),
+    await testPipe(
+      testPipe(command1),
       command2,
       command3,
     )(context);
@@ -76,7 +76,7 @@ describe('testFlow', () => {
     const command1 = command1Helper.createAsyncCommand(command1Res);
     const command2 = command2Helper.createAsyncCommand();
 
-    await testFlow(
+    await testPipe(
       command1,
       command2,
     )(context);

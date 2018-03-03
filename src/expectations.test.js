@@ -3,7 +3,7 @@ const mocks = require('./mocks');
 const MockElement = mocks.MockElement;
 const MockContext = mocks.MockContext;
 
-describe('testFlow expectations', () => {
+describe('testPipe expectations', () => {
   describe('isVisible', () => {
     it(`checks an element's visibility`, () => {
       const el = new MockElement();

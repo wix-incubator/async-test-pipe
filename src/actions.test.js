@@ -3,7 +3,7 @@ const mocks = require('./mocks');
 const MockElement = mocks.MockElement;
 const MockContext = mocks.MockContext;
 
-describe('testFlow actions', () => {
+describe('testPipe actions', () => {
   describe('findElement', () => {
     const el = new MockElement();
 

@@ -1,4 +1,4 @@
-function testFlow(...commands) {
+function testPipe(...commands) {
   return async (...args) => {
     const context = args.length === 1 ? args[0] : args[1];
     let prevRes = args.length > 1 ? args[0] : undefined;
@@ -10,4 +10,4 @@ function testFlow(...commands) {
   }
 }
 
-module.exports = testFlow;
+module.exports = testPipe;

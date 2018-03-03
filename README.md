@@ -45,7 +45,7 @@ describe('Login flow', () => {
   it('logins successfully', async () => {
     const emailInput = by.id('email');
     
-    await testFlow(
+    await testPipe(
       reloadReact(),
       isVisible(emailInput),
       typeText('john@example.com'),
@@ -74,7 +74,7 @@ import * as detox from 'detox';
 
 describe('Test flow', () => {
   it('tests', async () => {
-    await testFlow(
+    await testPipe(
       // ...
     )(detox);
   });
@@ -88,7 +88,7 @@ describe('Test flow', () => {
 ```js
 import {reloadReact} from 'async-test-pipe';
 //...
-  await testFlow(
+  await testPipe(
     reloadReact(),
   )(context);
 //...
@@ -98,7 +98,7 @@ import {reloadReact} from 'async-test-pipe';
 ```js
 import {find} from 'async-test-pipe';
 //...
-  await testFlow(
+  await testPipe(
     find(by.id('someId')),
   )(context);
 //...
@@ -108,7 +108,7 @@ import {find} from 'async-test-pipe';
 ```js
 import {tap} from 'async-test-pipe';
 //...
-  await testFlow(
+  await testPipe(
     tap(by.id('someId')),
   )(context);
 //...
@@ -118,7 +118,7 @@ import {tap} from 'async-test-pipe';
 ```js
 import {longPress} from 'async-test-pipe';
 //...
-  await testFlow(
+  await testPipe(
     longPress(by.id('someId')),
   )(context);
 //...
@@ -128,7 +128,7 @@ import {longPress} from 'async-test-pipe';
 ```js
 import {multiTap} from 'async-test-pipe';
 //...
-  await testFlow(
+  await testPipe(
     multiTap(by.id('someId')),
   )(context);
 //...
@@ -138,7 +138,7 @@ import {multiTap} from 'async-test-pipe';
 ```js
 import {multiTap} from 'async-test-pipe';
 //...
-  await testFlow(
+  await testPipe(
     text('some text', by.id('someId')),
   )(context);
 //...
@@ -148,7 +148,7 @@ import {multiTap} from 'async-test-pipe';
 ```js
 import {replaceText} from 'async-test-pipe';
 //...
-  await testFlow(
+  await testPipe(
     replaceText('some text', by.id('someId')),
   )(context);
 //...
@@ -158,7 +158,7 @@ import {replaceText} from 'async-test-pipe';
 ```js
 import {clearText} from 'async-test-pipe';
 //...
-  await testFlow(
+  await testPipe(
     clearText(by.id('someId')),
   )(context);
 //...
@@ -168,7 +168,7 @@ import {clearText} from 'async-test-pipe';
 ```js
 import {scroll} from 'async-test-pipe';
 //...
-  await testFlow(
+  await testPipe(
     scroll(100, 'down', by.id('someId')),
   )(context);
 //...
@@ -178,7 +178,7 @@ import {scroll} from 'async-test-pipe';
 ```js
 import {scrollTo} from 'async-test-pipe';
 //...
-  await testFlow(
+  await testPipe(
     scrollTo('top', by.id('someId')),
   )(context);
 //...
@@ -188,7 +188,7 @@ import {scrollTo} from 'async-test-pipe';
 ```js
 import {swipe} from 'async-test-pipe';
 //...
-  await testFlow(
+  await testPipe(
     swipe('top', 'fast', 10, by.id('someId')),
   )(context);
 //...
@@ -201,7 +201,7 @@ import {swipe} from 'async-test-pipe';
 ```js
 import {isVisible} from 'async-test-pipe';
 //...
-  await testFlow(
+  await testPipe(
     isVisible(by.id('someId')),
   )(context);
 //...
@@ -211,7 +211,7 @@ import {isVisible} from 'async-test-pipe';
 ```js
 import {isNotVisible} from 'async-test-pipe';
 //...
-  await testFlow(
+  await testPipe(
     isNotVisible(by.id('someId')),
   )(context);
 //...
@@ -221,7 +221,7 @@ import {isNotVisible} from 'async-test-pipe';
 ```js
 import {doesExist} from 'async-test-pipe';
 //...
-  await testFlow(
+  await testPipe(
     doesExist(by.id('someId')),
   )(context);
 //...
@@ -231,7 +231,7 @@ import {doesExist} from 'async-test-pipe';
 ```js
 import {doesNotExist} from 'async-test-pipe';
 //...
-  await testFlow(
+  await testPipe(
     doesNotExist(by.id('someId')),
   )(context);
 //...
@@ -241,7 +241,7 @@ import {doesNotExist} from 'async-test-pipe';
 ```js
 import {hasText} from 'async-test-pipe';
 //...
-  await testFlow(
+  await testPipe(
     hasText('some text', by.id('someId')),
   )(context);
 //...
@@ -251,7 +251,7 @@ import {hasText} from 'async-test-pipe';
 ```js
 import {hasId} from 'async-test-pipe';
 //...
-  await testFlow(
+  await testPipe(
     hasId('someId', by.id('someId')),
   )(context);
 //...
@@ -261,7 +261,7 @@ import {hasId} from 'async-test-pipe';
 ```js
 import {hasValue} from 'async-test-pipe';
 //...
-  await testFlow(
+  await testPipe(
     hasValue(100, by.id('someId')),
   )(context);
 //...
@@ -276,7 +276,7 @@ Consider few advanced examples.
 
 ```js
 import * as detox from 'detox';
-import {testFlow, reloadReact, find, isVisible, typeText, replaceText, clearText} from 'async-test-pipe';
+import {testPipe, reloadReact, find, isVisible, typeText, replaceText, clearText} from 'async-test-pipe';
 
 const {by} = detox; 
 
@@ -284,7 +284,7 @@ describe('Some flow', () => {
   it('expects something to be correct', async () => {
     const someElement = by.id('someId');
     
-    await testFlow(
+    await testPipe(
       reloadReact(),
       find(someElement),
       isVisible(),
@@ -295,7 +295,7 @@ describe('Some flow', () => {
     
     // The same (it's not required to use `find` separately) 
     
-    await testFlow(
+    await testPipe(
       reloadReact(),
       isVisible(someElement),
       typeText('some text'),
@@ -311,7 +311,7 @@ describe('Some flow', () => {
 ```js
 import * as detox from 'detox';
 import {
-  testFlow, reloadReact, find, isVisible, typeText, 
+  testPipe, reloadReact, find, isVisible, typeText, 
   replaceText, clearText, doesNotExist, tap,
 } from 'async-test-pipe';
 
@@ -320,7 +320,7 @@ const {by} = detox;
 describe('Some flow', () => {
   const emailInput = by.id('email');
   
-  const loginPipe = testFlow(
+  const loginPipe = testPipe(
     reloadReact(),
     isVisible(emailInput),
     typeText('john@example.com'),
@@ -337,7 +337,7 @@ describe('Some flow', () => {
   it('expects something to be correct', async () => {
     const someElement = by.id('someId');
     
-    await testFlow(
+    await testPipe(
       loginPipe,
       find(someElement),
       isVisible(),
