@@ -2,10 +2,8 @@
   "name": "async-test-pipe",
   "version": "0.9.0",
   "description": "Convenient interface for asynchronous testing frameworks",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest"
-  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wix/async-test-pipe.git"
@@ -20,7 +18,22 @@
     "url": "https://github.com/wix/async-test-pipe/issues"
   },
   "homepage": "https://github.com/wix/async-test-pipe#readme",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "pretest": "npm run build",
+    "test": "jest",
+    "prebuild": "rm -rf dist/*",
+    "build": "rollup -c"
+  },
   "devDependencies": {
-    "jest": "^22.4.2"
+    "babel-core": "^6.26.0",
+    "babel-jest": "^22.4.1",
+    "babel-preset-env": "^1.6.1",
+    "jest": "^22.4.2",
+    "rollup": "^0.56.3",
+    "rollup-plugin-node-resolve": "^3.0.3"
   }
 }

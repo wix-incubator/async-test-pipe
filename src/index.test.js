@@ -1,4 +1,4 @@
-const testPipe = require('./index');
+import {testPipe} from './index';
 
 class TestHelper {
   constructor() {

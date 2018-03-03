@@ -1,4 +1,4 @@
-function testPipe(...commands) {
+export function testPipe(...commands) {
   return async (...args) => {
     const context = args.length === 1 ? args[0] : args[1];
     let prevRes = args.length > 1 ? args[0] : undefined;
@@ -10,4 +10,5 @@ function testPipe(...commands) {
   }
 }
 
-module.exports = testPipe;
+export * from './actions';
+export * from './expectations';

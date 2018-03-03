@@ -89,7 +89,7 @@ class MockContext {
   }
 }
 
-module.exports = {
+export {
   MockElement,
   MockContext,
-};
+}

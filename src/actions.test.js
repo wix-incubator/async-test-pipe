@@ -1,14 +1,15 @@
-const actions = require('./actions');
-const mocks = require('./mocks');
-const MockElement = mocks.MockElement;
-const MockContext = mocks.MockContext;
+import {MockElement, MockContext} from './mocks';
+import {
+  clearText, find, findElement, longPress, multiTap, reloadReact, replaceText,
+  scroll, scrollTo, swipe, tap, typeText,
+} from './actions';
 
 describe('testPipe actions', () => {
   describe('findElement', () => {
     const el = new MockElement();
 
     it('returns the element from previous step', () => {
-      const foundElement = actions.findElement(undefined, el, new MockContext());
+      const foundElement = findElement(undefined, el, new MockContext());
 
       expect(foundElement).toBe(el);
     });
@@ -17,7 +18,7 @@ describe('testPipe actions', () => {
       const contextEl = new MockElement();
       const matcher = {byId: 'test'};
 
-      const foundElement = actions.findElement(matcher, el, new MockContext(matcher, contextEl));
+      const foundElement = findElement(matcher, el, new MockContext(matcher, contextEl));
 
       expect(foundElement).toBe(contextEl);
     });
@@ -27,7 +28,7 @@ describe('testPipe actions', () => {
     it('finds and returns the element from previous step', () => {
       const el = {mock: 'element from previous step'};
 
-      const foundElement = actions.find(undefined)(el, {});
+      const foundElement = find(undefined)(el, {});
 
       expect(foundElement).toBe(el);
     });
@@ -36,7 +37,7 @@ describe('testPipe actions', () => {
       const contextEl = {mock: 'element from context'};
       const matcher = {byId: 'test'};
 
-      const foundElement = actions.find(matcher)({}, new MockContext(matcher, contextEl));
+      const foundElement = find(matcher)({}, new MockContext(matcher, contextEl));
 
       expect(foundElement).toBe(contextEl);
     });
@@ -46,7 +47,7 @@ describe('testPipe actions', () => {
     it('reloads react native on device', () => {
       const context = new MockContext();
 
-      actions.reloadReact()(undefined, context);
+      reloadReact()(undefined, context);
 
       expect(context.device.reloaded).toBe(true);
     });
@@ -56,7 +57,7 @@ describe('testPipe actions', () => {
     it('taps the element from previous step', () => {
       const el = new MockElement();
 
-      const element = actions.tap()(el, new MockContext());
+      const element = tap()(el, new MockContext());
 
       expect(element).toBe(el);
       expect(el.tapped).toBe(true);
@@ -66,7 +67,7 @@ describe('testPipe actions', () => {
       const contextEl = new MockElement();
       const matcher = {byId: 'test'};
 
-      const element = actions.tap(matcher)({}, new MockContext(matcher, contextEl));
+      const element = tap(matcher)({}, new MockContext(matcher, contextEl));
 
       expect(element).toBe(contextEl);
       expect(contextEl.tapped).toBe(true);
@@ -77,7 +78,7 @@ describe('testPipe actions', () => {
     it('long presses the element from previous step', () => {
       const el = new MockElement();
 
-      const element = actions.longPress()(el, new MockContext());
+      const element = longPress()(el, new MockContext());
 
       expect(element).toBe(el);
       expect(el.longPressed).toBe(true);
@@ -87,7 +88,7 @@ describe('testPipe actions', () => {
       const contextEl = new MockElement();
       const matcher = {byId: 'test'};
 
-      const element = actions.longPress(matcher)({}, new MockContext(matcher, contextEl));
+      const element = longPress(matcher)({}, new MockContext(matcher, contextEl));
 
       expect(element).toBe(contextEl);
       expect(contextEl.longPressed).toBe(true);
@@ -99,7 +100,7 @@ describe('testPipe actions', () => {
       const el = new MockElement();
       const times = 2;
 
-      const element = actions.multiTap(times)(el, new MockContext());
+      const element = multiTap(times)(el, new MockContext());
 
       expect(element).toBe(el);
       expect(el.tappedTimes).toBe(times);
@@ -110,7 +111,7 @@ describe('testPipe actions', () => {
       const matcher = {byId: 'test'};
       const times = 2;
 
-      const element = actions.multiTap(times, matcher)({}, new MockContext(matcher, contextEl));
+      const element = multiTap(times, matcher)({}, new MockContext(matcher, contextEl));
 
       expect(element).toBe(contextEl);
       expect(contextEl.tappedTimes).toBe(times);
@@ -122,7 +123,7 @@ describe('testPipe actions', () => {
       const el = new MockElement();
       const text = 'some text';
 
-      const element = actions.typeText(text)(el, new MockContext());
+      const element = typeText(text)(el, new MockContext());
 
       expect(element).toBe(el);
       expect(el.text).toBe(text);
@@ -133,7 +134,7 @@ describe('testPipe actions', () => {
       const matcher = {byId: 'test'};
       const text = 'some text';
 
-      const element = actions.typeText(text, matcher)({}, new MockContext(matcher, contextEl));
+      const element = typeText(text, matcher)({}, new MockContext(matcher, contextEl));
 
       expect(element).toBe(contextEl);
       expect(contextEl.text).toBe(text);
@@ -146,8 +147,8 @@ describe('testPipe actions', () => {
       const context = new MockContext();
       const text = 'another text';
 
-      actions.typeText('some text')(el, context);
-      const element = actions.replaceText(text)(el, context);
+      typeText('some text')(el, context);
+      const element = replaceText(text)(el, context);
 
       expect(element).toBe(el);
       expect(el.text).toBe(text);
@@ -159,8 +160,8 @@ describe('testPipe actions', () => {
       const context = new MockContext(matcher, contextEl);
       const text = 'another text';
 
-      actions.typeText('some text', matcher)({}, context);
-      const element = actions.replaceText(text, matcher)({}, context);
+      typeText('some text', matcher)({}, context);
+      const element = replaceText(text, matcher)({}, context);
 
       expect(element).toBe(contextEl);
       expect(contextEl.text).toBe(text);
@@ -172,8 +173,8 @@ describe('testPipe actions', () => {
       const el = new MockElement();
       const context = new MockContext();
 
-      actions.typeText('some text')(el, context);
-      const element = actions.clearText()(el, context);
+      typeText('some text')(el, context);
+      const element = clearText()(el, context);
 
       expect(element).toBe(el);
       expect(el.text).toBe('');
@@ -184,8 +185,8 @@ describe('testPipe actions', () => {
       const contextEl = new MockElement();
       const context = new MockContext(matcher, contextEl);
 
-      actions.typeText('some text', matcher)({}, context);
-      const element = actions.clearText(matcher)({}, context);
+      typeText('some text', matcher)({}, context);
+      const element = clearText(matcher)({}, context);
 
       expect(element).toBe(contextEl);
       expect(contextEl.text).toBe('');
@@ -199,7 +200,7 @@ describe('testPipe actions', () => {
       const distance = 10;
       const direction = 'up';
 
-      const element = actions.scroll(distance, direction)(el, context);
+      const element = scroll(distance, direction)(el, context);
 
       expect(element).toBe(el);
       expect(el.scrolled).toEqual({distance, direction});
@@ -212,7 +213,7 @@ describe('testPipe actions', () => {
       const distance = 10;
       const direction = 'up';
 
-      const element = actions.scroll(distance, direction, matcher)({}, context);
+      const element = scroll(distance, direction, matcher)({}, context);
 
       expect(element).toBe(contextEl);
       expect(contextEl.scrolled).toEqual({distance, direction});
@@ -225,7 +226,7 @@ describe('testPipe actions', () => {
       const context = new MockContext();
       const direction = 'top';
 
-      const element = actions.scrollTo(direction)(el, context);
+      const element = scrollTo(direction)(el, context);
 
       expect(element).toBe(el);
       expect(el.scrolled).toEqual({direction});
@@ -237,7 +238,7 @@ describe('testPipe actions', () => {
       const context = new MockContext(matcher, contextEl);
       const direction = 'top';
 
-      const element = actions.scrollTo(direction, matcher)({}, context);
+      const element = scrollTo(direction, matcher)({}, context);
 
       expect(element).toBe(contextEl);
       expect(contextEl.scrolled).toEqual({direction});
@@ -252,7 +253,7 @@ describe('testPipe actions', () => {
       const speed = 'fast';
       const percentage = 0.5;
 
-      const element = actions.swipe(direction, speed, percentage)(el, context);
+      const element = swipe(direction, speed, percentage)(el, context);
 
       expect(element).toBe(el);
       expect(el.swiped).toEqual({direction, speed, percentage});
@@ -266,7 +267,7 @@ describe('testPipe actions', () => {
       const speed = 'fast';
       const percentage = 0.5;
 
-      const element = actions.swipe(direction, speed, percentage, matcher)({}, context);
+      const element = swipe(direction, speed, percentage, matcher)({}, context);
 
       expect(element).toBe(contextEl);
       expect(contextEl.swiped).toEqual({direction, speed, percentage});

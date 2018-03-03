@@ -1,7 +1,5 @@
-const expectations = require('./expectations');
-const mocks = require('./mocks');
-const MockElement = mocks.MockElement;
-const MockContext = mocks.MockContext;
+import {MockElement, MockContext} from './mocks';
+import {doesExist, doesNotExist, hasId, hasText, hasValue, isNotVisible, isVisible} from './expectations';
 
 describe('testPipe expectations', () => {
   describe('isVisible', () => {
@@ -9,7 +7,7 @@ describe('testPipe expectations', () => {
       const el = new MockElement();
       const context = new MockContext();
 
-      const element = expectations.isVisible()(el, context);
+      const element = isVisible()(el, context);
 
       expect(element).toBe(el);
       expect(context.checked.element).toBe(el);
@@ -21,7 +19,7 @@ describe('testPipe expectations', () => {
       const matcher = {byId: 'test'};
       const context = new MockContext(matcher, contextEl);
 
-      const element = expectations.isVisible(matcher)({}, context);
+      const element = isVisible(matcher)({}, context);
 
       expect(element).toBe(contextEl);
       expect(context.checked.element).toBe(contextEl);
@@ -34,7 +32,7 @@ describe('testPipe expectations', () => {
       const el = new MockElement();
       const context = new MockContext();
 
-      const element = expectations.isNotVisible()(el, context);
+      const element = isNotVisible()(el, context);
 
       expect(element).toBe(el);
       expect(context.checked.element).toBe(el);
@@ -46,7 +44,7 @@ describe('testPipe expectations', () => {
       const matcher = {byId: 'test'};
       const context = new MockContext(matcher, contextEl);
 
-      const element = expectations.isNotVisible(matcher)({}, context);
+      const element = isNotVisible(matcher)({}, context);
 
       expect(element).toBe(contextEl);
       expect(context.checked.element).toBe(contextEl);
@@ -59,7 +57,7 @@ describe('testPipe expectations', () => {
       const el = new MockElement();
       const context = new MockContext();
 
-      const element = expectations.doesExist()(el, context);
+      const element = doesExist()(el, context);
 
       expect(element).toBe(el);
       expect(context.checked.element).toBe(el);
@@ -71,7 +69,7 @@ describe('testPipe expectations', () => {
       const matcher = {byId: 'test'};
       const context = new MockContext(matcher, contextEl);
 
-      const element = expectations.doesExist(matcher)({}, context);
+      const element = doesExist(matcher)({}, context);
 
       expect(element).toBe(contextEl);
       expect(context.checked.element).toBe(contextEl);
@@ -84,7 +82,7 @@ describe('testPipe expectations', () => {
       const el = new MockElement();
       const context = new MockContext();
 
-      const element = expectations.doesNotExist()(el, context);
+      const element = doesNotExist()(el, context);
 
       expect(element).toBe(el);
       expect(context.checked.element).toBe(el);
@@ -96,7 +94,7 @@ describe('testPipe expectations', () => {
       const matcher = {byId: 'test'};
       const context = new MockContext(matcher, contextEl);
 
-      const element = expectations.doesNotExist(matcher)({}, context);
+      const element = doesNotExist(matcher)({}, context);
 
       expect(element).toBe(contextEl);
       expect(context.checked.element).toBe(contextEl);
@@ -110,7 +108,7 @@ describe('testPipe expectations', () => {
       const context = new MockContext();
       const text = 'test text';
 
-      const element = expectations.hasText(text)(el, context);
+      const element = hasText(text)(el, context);
 
       expect(element).toBe(el);
       expect(context.checked.element).toBe(el);
@@ -123,7 +121,7 @@ describe('testPipe expectations', () => {
       const context = new MockContext(matcher, contextEl);
       const text = 'test text';
 
-      const element = expectations.hasText(text, matcher)({}, context);
+      const element = hasText(text, matcher)({}, context);
 
       expect(element).toBe(contextEl);
       expect(context.checked.element).toBe(contextEl);
@@ -137,7 +135,7 @@ describe('testPipe expectations', () => {
       const context = new MockContext();
       const id = 'testId';
 
-      const element = expectations.hasId(id)(el, context);
+      const element = hasId(id)(el, context);
 
       expect(element).toBe(el);
       expect(context.checked.element).toBe(el);
@@ -150,7 +148,7 @@ describe('testPipe expectations', () => {
       const context = new MockContext(matcher, contextEl);
       const id = 'testId';
 
-      const element = expectations.hasId(id, matcher)({}, context);
+      const element = hasId(id, matcher)({}, context);
 
       expect(element).toBe(contextEl);
       expect(context.checked.element).toBe(contextEl);
@@ -164,7 +162,7 @@ describe('testPipe expectations', () => {
       const context = new MockContext();
       const value = 'testVal';
 
-      const element = expectations.hasValue(value)(el, context);
+      const element = hasValue(value)(el, context);
 
       expect(element).toBe(el);
       expect(context.checked.element).toBe(el);
@@ -177,7 +175,7 @@ describe('testPipe expectations', () => {
       const context = new MockContext(matcher, contextEl);
       const value = 'testVal';
 
-      const element = expectations.hasValue(value, matcher)({}, context);
+      const element = hasValue(value, matcher)({}, context);
 
       expect(element).toBe(contextEl);
       expect(context.checked.element).toBe(contextEl);

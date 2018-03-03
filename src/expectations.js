@@ -1,4 +1,4 @@
-const findElement = require('./actions').findElement;
+import {findElement} from './actions';
 
 function expect(func) {
   return (...args) => (prevRes, context) => {
@@ -19,7 +19,7 @@ const hasText = expect((context, el, text) => context.expect(el).toHaveText(text
 const hasId = expect((context, el, id) => context.expect(el).toHaveId(id));
 const hasValue = expect((context, el, value) => context.expect(el).toHaveValue(value));
 
-module.exports = {
+export {
   isVisible,
   isNotVisible,
   doesExist,
@@ -27,4 +27,4 @@ module.exports = {
   hasText,
   hasId,
   hasValue,
-};
+}

@@ -24,7 +24,7 @@ const scroll = action((el, distance, direction) => el.scroll(distance, direction
 const scrollTo = action((el, edge) => el.scrollTo(edge));
 const swipe = action((el, direction, speed, percentage) => el.swipe(direction, speed, percentage));
 
-module.exports = {
+export {
   findElement,
   reloadReact,
   find,
@@ -37,4 +37,4 @@ module.exports = {
   scroll,
   scrollTo,
   swipe,
-};
+}
