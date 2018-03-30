@@ -1,7 +1,7 @@
 function action(func) {
-  return (...args) => (prevRes, context) => {
+  return (...args) => (prevRes, context, findFn = context.element) => {
     const matcher = args[func.length - 1];
-    const el = findElement(matcher, prevRes, context);
+    const el = findElement(matcher, prevRes, findFn);
 
     func(el, ...args);
 
@@ -9,11 +9,11 @@ function action(func) {
   }
 }
 
-const findElement = (matcher = undefined, prevRes, context) =>
-  matcher ? context.element(matcher) : prevRes;
+const findElement = (matcher = undefined, prevRes, find) =>
+  matcher ? find(matcher) : prevRes;
 
 const reloadReact = () => (prevRes, context) => context.device.reloadReactNative();
-const find = matcher => (prevRes, context) => findElement(matcher, prevRes, context);
+const find = matcher => (prevRes, context) => findElement(matcher, prevRes, context.element);
 const tap = action(el => el.tap());
 const longPress = action(el => el.longPress());
 const multiTap = action((el, times) => el.multiTap(times));

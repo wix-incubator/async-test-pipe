@@ -9,7 +9,7 @@ describe('testPipe actions', () => {
     const el = new MockElement();
 
     it('returns the element from previous step', () => {
-      const foundElement = findElement(undefined, el, new MockContext());
+      const foundElement = findElement(undefined, el, new MockContext().element);
 
       expect(foundElement).toBe(el);
     });
@@ -18,7 +18,7 @@ describe('testPipe actions', () => {
       const contextEl = new MockElement();
       const matcher = {byId: 'test'};
 
-      const foundElement = findElement(matcher, el, new MockContext(matcher, contextEl));
+      const foundElement = findElement(matcher, el, new MockContext(matcher, contextEl).element);
 
       expect(foundElement).toBe(contextEl);
     });

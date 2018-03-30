@@ -1,23 +1,21 @@
 import {findElement} from './actions';
 
 function expect(func) {
-  return (...args) => (prevRes, context) => {
+  return (...args) => (prevRes, context, expectFn = context.expect) => {
     const matcher = args[func.length - 2];
-    const el = findElement(matcher, prevRes, context);
+    const element = findElement(matcher, prevRes, context.element);
 
-    func(context, el, ...args);
-
-    return el;
+    return {element, commandRes: func(expectFn, element, ...args)};
   }
 }
 
-const isVisible = expect((context, el) => context.expect(el).toBeVisible());
-const isNotVisible = expect((context, el) => context.expect(el).toBeNotVisible());
-const doesExist = expect((context, el) => context.expect(el).toExist());
-const doesNotExist = expect((context, el) => context.expect(el).toNotExist());
-const hasText = expect((context, el, text) => context.expect(el).toHaveText(text));
-const hasId = expect((context, el, id) => context.expect(el).toHaveId(id));
-const hasValue = expect((context, el, value) => context.expect(el).toHaveValue(value));
+const isVisible = expect((expectFn, el) => expectFn(el).toBeVisible());
+const isNotVisible = expect((expectFn, el) => expectFn(el).toBeNotVisible());
+const doesExist = expect((expectFn, el) => expectFn(el).toExist());
+const doesNotExist = expect((expectFn, el) => expectFn(el).toNotExist());
+const hasText = expect((expectFn, el, text) => expectFn(el).toHaveText(text));
+const hasId = expect((expectFn, el, id) => expectFn(el).toHaveId(id));
+const hasValue = expect((expectFn, el, value) => expectFn(el).toHaveValue(value));
 
 export {
   isVisible,

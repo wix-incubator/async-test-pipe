@@ -1,4 +1,3 @@
-
 class MockElement {
   constructor() {
     this.tapped = false;
@@ -53,9 +52,16 @@ class MockElement {
   }
 }
 
+const mockContextDefaults = {matcher: {}, element: new MockElement(), commandRes: undefined};
+
 class MockContext {
-  constructor(matcher = {}, el = new MockElement()) {
-    this.els = new Map([[matcher, el]]);
+  constructor({
+    matcher = mockContextDefaults.matcher,
+    element = mockContextDefaults.element,
+    commandRes = mockContextDefaults.commandRes,
+  } = mockContextDefaults) {
+    this.commandRes = commandRes;
+    this.els = new Map([[matcher, element]]);
     this.device = {
       reloadReactNative: () => this.device.reloaded = true,
       reloaded: false,
@@ -70,6 +76,9 @@ class MockContext {
       id: null,
       value: '',
     };
+
+    this.element = this.element.bind(this);
+    this.expect = this.expect.bind(this);
   }
 
   element(matcher) {
@@ -78,13 +87,13 @@ class MockContext {
 
   expect(el) {
     return {
-      toBeVisible: () => (this.checked.element = el, this.checked.visibility = true),
-      toBeNotVisible: () => (this.checked.element = el, this.checked.invisibility = true),
-      toExist: () => (this.checked.element = el, this.checked.existence = true),
-      toNotExist: () => (this.checked.element = el, this.checked.inexistence = true),
-      toHaveText: text => (this.checked.element = el, this.checked.text = text),
-      toHaveId: id => (this.checked.element = el, this.checked.id = id),
-      toHaveValue: value => (this.checked.element = el, this.checked.value = value),
+      toBeVisible: () => (this.checked.element = el, this.checked.visibility = true, this.commandRes),
+      toBeNotVisible: () => (this.checked.element = el, this.checked.invisibility = true, this.commandRes),
+      toExist: () => (this.checked.element = el, this.checked.existence = true, this.commandRes),
+      toNotExist: () => (this.checked.element = el, this.checked.inexistence = true, this.commandRes),
+      toHaveText: text => (this.checked.element = el, this.checked.text = text, this.commandRes),
+      toHaveId: id => (this.checked.element = el, this.checked.id = id, this.commandRes),
+      toHaveValue: value => (this.checked.element = el, this.checked.value = value, this.commandRes),
     }
   }
 }
