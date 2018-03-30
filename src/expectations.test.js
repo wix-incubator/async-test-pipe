@@ -8,7 +8,7 @@ describe('testPipe expectations', () => {
       const el = new MockElement();
       const context = new MockContext({commandRes: commandResMock});
 
-      const {element, commandRes} = isVisible()(el, context);
+      const {element, commandRes} = isVisible()({element: el}, context);
 
       expect(element).toBe(el);
       expect(commandRes).toBe(commandResMock);
@@ -34,7 +34,7 @@ describe('testPipe expectations', () => {
       const el = new MockElement();
       const context = new MockContext({commandRes: commandResMock});
 
-      const {element, commandRes} = isNotVisible()(el, context);
+      const {element, commandRes} = isNotVisible()({element: el}, context);
 
       expect(element).toBe(el);
       expect(commandRes).toBe(commandResMock);
@@ -60,7 +60,7 @@ describe('testPipe expectations', () => {
       const el = new MockElement();
       const context = new MockContext({commandRes: commandResMock});
 
-      const {element, commandRes} = doesExist()(el, context);
+      const {element, commandRes} = doesExist()({element: el}, context);
 
       expect(element).toBe(el);
       expect(commandRes).toBe(commandResMock);
@@ -86,7 +86,7 @@ describe('testPipe expectations', () => {
       const el = new MockElement();
       const context = new MockContext({commandRes: commandResMock});
 
-      const {element, commandRes} = doesNotExist()(el, context);
+      const {element, commandRes} = doesNotExist()({element: el}, context);
 
       expect(element).toBe(el);
       expect(commandRes).toBe(commandResMock);
@@ -113,7 +113,7 @@ describe('testPipe expectations', () => {
       const context = new MockContext({commandRes: commandResMock});
       const text = 'test text';
 
-      const {element, commandRes} = hasText(text)(el, context);
+      const {element, commandRes} = hasText(text)({element: el}, context);
 
       expect(element).toBe(el);
       expect(commandRes).toBe(commandResMock);
@@ -140,7 +140,7 @@ describe('testPipe expectations', () => {
       const context = new MockContext({commandRes: commandResMock});
       const id = 'testId';
 
-      const {element, commandRes} = hasId(id)(el, context);
+      const {element, commandRes} = hasId(id)({element: el}, context);
 
       expect(element).toBe(el);
       expect(commandRes).toBe(commandResMock);
@@ -167,7 +167,7 @@ describe('testPipe expectations', () => {
       const context = new MockContext({commandRes: commandResMock});
       const value = 'testVal';
 
-      const {element, commandRes} = hasValue(value)(el, context);
+      const {element, commandRes} = hasValue(value)({element: el}, context);
 
       expect(element).toBe(el);
       expect(commandRes).toBe(commandResMock);
