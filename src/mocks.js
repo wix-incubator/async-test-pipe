@@ -96,6 +96,7 @@ class MockContext {
       value: '',
       waitForExpectation: false,
       waitForTime: null,
+      waitWhileMatcher: undefined,
     };
 
     this.element = this.element.bind(this);
@@ -130,14 +131,52 @@ class MockContext {
             this.checked.waitForTime = time;
 
             return this.commandRes;
-          }
+          },
+
+          whileElement: matcher => this.checked.waitWhileMatcher = matcher,
         }
       }
     }
   }
 }
 
+class ExpectationMock {
+  constructor(element) {
+    this.element = element;
+    this.prevRes = undefined;
+
+    this.expectation = this.expectation.bind(this);
+  }
+
+  expectation(prevRes, context, expectFn) {
+    this.prevRes = prevRes;
+
+    return {element: this.element, commandRes: expectFn(this.element).expectation()}
+  }
+}
+
+class WhileActionMock {
+  constructor({matcher, commandRes} = {}) {
+    this.matcher = matcher;
+    this.commandRes = commandRes;
+    this.prevRes = undefined;
+    this.context = undefined;
+
+    this.action = this.action.bind(this);
+  }
+
+  action(prevRes, context, findFn) {
+    this.prevRes = prevRes;
+    this.context = context;
+    findFn(this.matcher);
+
+    return {commandRes: this.commandRes}
+  }
+}
+
 export {
   MockElement,
   MockContext,
+  ExpectationMock,
+  WhileActionMock,
 }

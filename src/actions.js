@@ -7,8 +7,15 @@ function action(func) {
   }
 }
 
-const findElement = (matcher = undefined, {element}, find) =>
-  matcher ? find(matcher) : element;
+function waitForAction(func) {
+  return (expectation, ...args) => (prevRes, context) => {
+    const {element, commandRes} = expectation(prevRes, context, context.waitFor);
+
+    return {element, commandRes: func(commandRes, context, ...args)}
+  }
+}
+
+const findElement = (matcher = undefined, {element}, find) => matcher ? find(matcher) : element;
 
 const reloadReact = () => (prevRes, context) => ({commandRes: context.device.reloadReactNative()});
 const find = matcher => (prevRes, context) => ({element: findElement(matcher, prevRes, context.element)});
@@ -21,13 +28,9 @@ const clearText = action(el => el.clearText());
 const scroll = action((el, distance, direction) => el.scroll(distance, direction));
 const scrollTo = action((el, edge) => el.scrollTo(edge));
 const swipe = action((el, direction, speed, percentage) => el.swipe(direction, speed, percentage));
-const waitFor = (expectation, time) => (prevRes, context) => {
-  const {element, commandRes} = expectation(prevRes, context, context.waitFor);
-
-  return {element, commandRes: commandRes.withTimeout(time)};
-};
-const waitWhile = (expectation, whileAction) => (prevRes, context) =>
-  whileAction(prevRes, context, expectation(prevRes, context, context.waitFor) /*it returns an element .whileElement*/);
+const waitFor = waitForAction((commandRes, context, time) => commandRes.withTimeout(time));
+const waitWhile = waitForAction((commandRes, context, whileAction) =>
+  whileAction({}, context, commandRes.whileElement).commandRes);
 
 export {
   findElement,

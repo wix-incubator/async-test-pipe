@@ -1,7 +1,7 @@
-import {MockElement, MockContext} from './mocks';
+import {MockElement, MockContext, ExpectationMock, WhileActionMock} from './mocks';
 import {
   clearText, find, findElement, longPress, multiTap, reloadReact, replaceText,
-  scroll, scrollTo, swipe, tap, typeText, waitFor,
+  scroll, scrollTo, swipe, tap, typeText, waitFor, waitWhile,
 } from './actions';
 
 describe('testPipe actions', () => {
@@ -277,21 +277,6 @@ describe('testPipe actions', () => {
   });
 
   describe('waitFor', () => {
-    class ExpectationMock {
-      constructor(element) {
-        this.element = element;
-        this.prevRes = undefined;
-
-        this.expectation = this.expectation.bind(this);
-      }
-
-      expectation(prevRes, context, expectFn) {
-        this.prevRes = prevRes;
-
-        return {element: this.element, commandRes: expectFn(this.element).expectation()}
-      }
-    }
-
     it('returns the element found by expectation function', () => {
       const el = new MockElement();
       const context = new MockContext();
@@ -321,31 +306,35 @@ describe('testPipe actions', () => {
   });
 
   describe('waitWhile', () => {
-    // it('swipes the element from previous step', () => {
-    //   const el = new MockElement();
-    //   const context = new MockContext();
-    //   const direction = 'up';
-    //   const speed = 'fast';
-    //   const percentage = 0.5;
-    //
-    //   const element = swipe(direction, speed, percentage)(el, context);
-    //
-    //   expect(element).toBe(el);
-    //   expect(el.swiped).toEqual({direction, speed, percentage});
-    // });
-    //
-    // it('swipes the element found by matcher', () => {
-    //   const matcher = {byId: 'test'};
-    //   const contextEl = new MockElement();
-    //   const context = new MockContext({matcher, element: contextEl});
-    //   const direction = 'up';
-    //   const speed = 'fast';
-    //   const percentage = 0.5;
-    //
-    //   const element = swipe(direction, speed, percentage, matcher)({}, context);
-    //
-    //   expect(element).toBe(contextEl);
-    //   expect(contextEl.swiped).toEqual({direction, speed, percentage});
-    // });
+    it('returns the element found by expectation function', () => {
+      const matcher = {byId: 'test'};
+      const el = new MockElement();
+      const context = new MockContext({matcher, element: new MockElement()});
+      const expectationMock = new ExpectationMock(el);
+      const whileActionMock = new WhileActionMock();
+      const prevRes = {};
+
+      const {element} = waitWhile(expectationMock.expectation, whileActionMock.action)(prevRes, context);
+
+      expect(element).toBe(el);
+      expect(prevRes).toBe(expectationMock.prevRes);
+      expect(context.checked.element).toBe(el);
+    });
+
+    it('performs action on the element found by whileElement', () => {
+      const context = new MockContext();
+      const commandResMock = 'commandRes';
+      const matcher = {byId: 'test'};
+      const el = new MockElement();
+      const expectationMock = new ExpectationMock(el);
+      const whileActionMock = new WhileActionMock({matcher, commandRes: commandResMock});
+
+      const {commandRes} = waitWhile(expectationMock.expectation, whileActionMock.action)({}, context);
+
+      expect(whileActionMock.prevRes).toEqual({});
+      expect(whileActionMock.context).toBe(context);
+      expect(commandRes).toBe(commandResMock);
+      expect(context.checked.waitWhileMatcher).toBe(matcher);
+    });
   });
 });
